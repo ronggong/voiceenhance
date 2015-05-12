@@ -22,6 +22,9 @@ end
 
 [nf,fs_nf] = audioread(noise_file);
 [ns,fs_ns] = audioread(noisyspeech);
+% use only channel 1
+nf = nf(:, 1);
+ns = ns(:, 1);
 
 fftlen = 0.03*fs_nf;
 hopsize = 0.015*fs_nf;
