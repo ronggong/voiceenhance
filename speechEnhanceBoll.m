@@ -88,6 +88,10 @@ end
 %% reconstruct
 nsd = overlapAdd( S_A,phase_ns,fftlen,hopsize );
 
+% write output audio
+outputFile = 'output.wav';
+wavwrite(nsd, fs_ns, outputFile);
+
 figure
 imagesc(time_ns,S_freq,20*log10(S_A));
 set(gca,'YDir','normal')
