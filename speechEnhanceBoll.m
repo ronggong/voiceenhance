@@ -26,8 +26,11 @@ end
 nf = nf(:, 1);
 ns = ns(:, 1);
 
-fftlen = 0.03*fs_nf;
-hopsize = 0.015*fs_nf;
+%fftlen = 0.03*fs_nf;
+%hopsize = 0.015*fs_nf;
+% use hardcoded value
+fftlen = 1024;
+hopsize = 256;
 
 [ S_nf,S_freq,time_nf,tau_nf,phase_nf ] = STFT_KI( nf,fs_nf,fftlen,hopsize,0 );
 [ S_ns,~,time_ns,tau_ns,phase_ns ] = STFT_KI( ns,fs_ns,fftlen,hopsize,0 );
