@@ -22,9 +22,15 @@ end
 
 [nf,fs_nf] = audioread(noise_file);
 [ns,fs_ns] = audioread(noisyspeech);
+% use only channel 1
+nf = nf(:, 1);
+ns = ns(:, 1);
 
-fftlen = 0.03*fs_nf;
-hopsize = 0.015*fs_nf;
+%fftlen = 0.03*fs_nf;
+%hopsize = 0.015*fs_nf;
+% use hardcoded value
+fftlen = 1024;
+hopsize = 256;
 
 [ S_nf,S_freq,time_nf,tau_nf,phase_nf ] = STFT_KI( nf,fs_nf,fftlen,hopsize,0 );
 [ S_ns,~,time_ns,tau_ns,phase_ns ] = STFT_KI( ns,fs_ns,fftlen,hopsize,0 );
@@ -81,6 +87,10 @@ for jj = 2:tau_ns-1
 end
 %% reconstruct
 nsd = overlapAdd( S_A,phase_ns,fftlen,hopsize );
+
+% write output audio
+outputFile = 'output.wav';
+wavwrite(nsd, fs_ns, outputFile);
 
 figure
 imagesc(time_ns,S_freq,20*log10(S_A));
